@@ -9,9 +9,9 @@
 import Foundation
 
 public struct GiphyResultProperties {
-    let count: Int
-    let offset: Int
-    let totalCount: Int?
+    public let count: Int
+	public let offset: Int
+	public let totalCount: Int?
     
     init?(json: JSON) {
         guard let count = json["count"] as? Int,
@@ -26,5 +26,4 @@ public struct GiphyResultProperties {
         guard let pagination = object as? JSON else { return nil }
         self.init(json: pagination)
     }
-    
 }
