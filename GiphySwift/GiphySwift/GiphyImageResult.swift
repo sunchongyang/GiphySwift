@@ -101,8 +101,8 @@ public struct GiphyImageResult: GiphyImage, GiphyModelRequestable {
     public let caption: String?
     public let contentUrl: String?
     
-    public let importDate: Date
-    public let trendingDate: Date
+    public let importDate: Date?
+    public let trendingDate: Date?
 
     public let images: Images
     
@@ -122,9 +122,7 @@ public struct GiphyImageResult: GiphyImage, GiphyModelRequestable {
             let ratingString = json["rating"] as? String,
             let rating = Giphy.Rating(rawValue: ratingString),
             let importDateString = json["import_datetime"] as? String,
-            let importDate = Giphy.dateFormatter.date(from: importDateString),
             let trendingDateString = json["trending_datetime"] as? String,
-            let trendingDate = Giphy.dateFormatter.date(from: trendingDateString),
             let imagesJSON = json["images"] as? JSON,
             let images = Images(json: imagesJSON)
         else { return nil }
@@ -148,8 +146,8 @@ public struct GiphyImageResult: GiphyImage, GiphyModelRequestable {
         self.rating = rating
         self.caption = caption
         self.contentUrl = contentUrl
-        self.importDate = importDate
-        self.trendingDate = trendingDate
+        self.importDate = Giphy.dateFormatter.date(from: importDateString)
+        self.trendingDate = Giphy.dateFormatter.date(from: trendingDateString)
         self.images = images
     }
     
